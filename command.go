@@ -104,6 +104,9 @@ type Command struct {
 	// command does not define one.
 	Version string
 
+	// SupportFrom defines the version from which the current command was added.
+	SupportFrom string
+
 	// The *Run functions are executed in the following order:
 	//   * PersistentPreRun()
 	//   * PreRun()
@@ -1662,6 +1665,11 @@ func (c *Command) HasAvailableLocalFlags() bool {
 // not hidden or deprecated.
 func (c *Command) HasAvailableInheritedFlags() bool {
 	return c.InheritedFlags().HasAvailableFlags()
+}
+
+// HasSupportFrom determines if the command has SupportFrom field.
+func (c *Command) HasSupportFrom() bool {
+	return len(c.SupportFrom) > 0
 }
 
 // Flag climbs up the command tree looking for matching flag.
